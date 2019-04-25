@@ -6,7 +6,7 @@
 # @File    : taskSetsGenerator.py
 # @Software: PyCharm
 from scheduler import *
-NUM_OF_TASKSETS = 20  #1000
+NUM_OF_TASKSETS = 5  #1000
 MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
 MAX_NUM_OF_NODES = 25#250
 MIN_WCET_OF_NODE = 50#50 #每个子节点的WCET将从这个范围中随机选取
@@ -18,6 +18,9 @@ ALPHA = 2 #用来控制任务集的轻重任务比例，1/alpha代表重任务�
 应控制相等，也就是说每次实验产生NUM_OF_TASKSETS个任务集，每个任务集的总利用率都等于固定值
 Usum:任务集需要达到的总利用率，一次实验产生NUM_OF_TASKSETS个任务集，每个任务集总利用率等于该值
 ID, size, p, min, max, fixsum, period, deadine, option, str
+'''
+'''
+此种生成方法中周期period才用可以控制轻重比的方式
 '''
 def tasksets_generator(Usum):
     tasksets = [] #用来存一次实验所需产生的NUM_OF_TASKSETS个任务集
@@ -31,7 +34,7 @@ def tasksets_generator(Usum):
             L = task.critical_path_length
             C = task.cost
             period = L + random.uniform(0, ALPHA * (C - L)) # 生成合规的周期
-            period = round(period)
+            period = int(round(period))
             u = 1.0 * C / period
             deadline = period
             task.period = period
@@ -50,7 +53,7 @@ def tasksets_generator(Usum):
             task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
             print "2ID:", ID
             cost = task.cost
-            period = cost/targetUtil + 1
+            period = int(cost/targetUtil + 1)
             deadline = period
             task.period = period
             task.deadline = deadline
@@ -63,7 +66,7 @@ def tasksets_generator(Usum):
 
             task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
             cost = task.cost
-            period = 1.0*cost / remainUtil + 1
+            period = int(1.0*cost / remainUtil + 1)
             deadline = period
             task.period = period
             task.deadline = deadline
@@ -78,7 +81,6 @@ def tasksets_generator(Usum):
                 task.deadline = deadline
                 taskset.append(task)
                 ID = ID + 1
-                j = j + 1
             print "5ID:", ID
 
         # while(Us < 0.99*Usum):
@@ -91,7 +93,9 @@ def tasksets_generator(Usum):
         i = i + 1
     return tasksets
 
-
+'''
+此种生成方式中周期period为采用gamma分布的方式
+'''
 def tasksets_generator1(Usum, m):
     tasksets = [] #用来存一次实验所需产生的NUM_OF_TASKSETS个任务集
     for i in range(NUM_OF_TASKSETS):
@@ -162,6 +166,13 @@ def tasksets_generator1(Usum, m):
         tasksets.append(taskset)
         i = i + 1
     return tasksets
+
+'''
+此种生成方式控制任务集里周期同关键路径长度的比值关系
+'''
+def tasksets_generator2(Usum, ):
+
+    return 0
 
 if __name__ == '__main__':
     tasksets = tasksets_generator(24)
