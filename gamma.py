@@ -18,8 +18,8 @@ if __name__ == '__main__':
     #
     #
     # z3=st.gamma.pdf(x,2,scale=1)
-    s = 0.3
-    a = 4
-    print 1,2
+    for i in range(5):
+        print i
+        i = i + 1
 
 
