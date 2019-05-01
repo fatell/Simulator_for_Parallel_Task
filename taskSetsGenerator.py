@@ -6,7 +6,8 @@
 # @File    : taskSetsGenerator.py
 # @Software: PyCharm
 from scheduler import *
-NUM_OF_TASKSETS = 5  #1000
+NUM_OF_TASKSETS = 1  #1000
+CORENUM = 16
 MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
 MAX_NUM_OF_NODES = 25#250
 MIN_WCET_OF_NODE = 50#50 #每个子节点的WCET将从这个范围中随机选取
@@ -131,10 +132,10 @@ def tasksets_generator1(Usum, m):
         del taskset[-1]
         targetUtil = Usum - Us
         ID = len(taskset)
-        print "1ID:",ID
+        #print "1ID:",ID
         if targetUtil < 1:
             task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
-            print "2ID:", ID
+            #print "2ID:", ID
             cost = task.cost
             period = int(cost/targetUtil + 1)
             period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
@@ -144,7 +145,7 @@ def tasksets_generator1(Usum, m):
             task.deadline = deadline
             taskset.append(task)
             ID = ID + 1
-            print "3ID:", ID
+            #print "3ID:", ID
         else: #若剩余利用率大于1 则拆分为n个1，和一个小于1的任务
             num = int(targetUtil)
             remainUtil = targetUtil - num
@@ -159,7 +160,7 @@ def tasksets_generator1(Usum, m):
             task.deadline = deadline
             taskset.append(task)
             ID = ID + 1
-            print "4ID,", ID, "num:", num
+            #print "4ID,", ID, "num:", num
             for j in range(num):
                 task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
                 period = task.cost
@@ -170,7 +171,7 @@ def tasksets_generator1(Usum, m):
                 task.deadline = deadline
                 taskset.append(task)
                 ID = ID + 1
-            print "5ID:", ID
+            #print "5ID:", ID
 
         # while(Us < 0.99*Usum):
         #     n = random.randint(MIN_NUM_OF_NODES, MAX_NUM_OF_NODES)

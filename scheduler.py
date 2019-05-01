@@ -237,9 +237,9 @@ def gedf_scheduler(taskset, corenum, time):
                 job.tardiness = tardiness
         finish_job.extend(finish_job_this_second)# 将这一秒完成的作业加入到finish_job里
         count1 = len(finish_job)
-        if t < least_common_mutiple:
-            m1 = count1
-            m2 = count2
+        #if t < least_common_mutiple:
+        m1 = count1
+        m2 = count2
         nodes_list = []
         for job in job_set:# 再次从job_set中获取入度为0的节点
             nodes = pop_nodes_of_zero_in_degree(job)
