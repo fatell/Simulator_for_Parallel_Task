@@ -6,8 +6,8 @@
 # @File    : taskSetsGenerator.py
 # @Software: PyCharm
 from scheduler import *
-NUM_OF_TASKSETS = 1  #1000
-CORENUM = 16
+NUM_OF_TASKSETS = 5  #1000
+CORENUM = 8
 MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
 MAX_NUM_OF_NODES = 25#250
 MIN_WCET_OF_NODE = 50#50 #每个子节点的WCET将从这个范围中随机选取
