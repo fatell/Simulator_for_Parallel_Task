@@ -262,7 +262,7 @@ def tasksets_generator2(Usum, alpha):
 if __name__ == '__main__':
     #tasksets = tasksets_generator(24)
     tasksets = tasksets_generator1(24,32)
-    #tasksets = tasksets_generator2(24,4)
+    #tasksets = tasksets_generator2(6,4)
     print len(tasksets)
     for i in range(NUM_OF_TASKSETS):
         period_list = []
