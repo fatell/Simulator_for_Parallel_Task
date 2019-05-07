@@ -19,7 +19,7 @@ if __name__ == '__main__':
             execution_cost = execution_cost + task.cost
             sum_of_deadline = sum_of_deadline + task.deadline
         least_common_mutiple = lcmAll(period_list)
-        time = 10 * least_common_mutiple
+        time = 5 * least_common_mutiple
         average_execution_cost = 1.0 * execution_cost / len(tasksets[i])
         average_deadline = 1.0 * sum_of_deadline / len(tasksets[i])
 
