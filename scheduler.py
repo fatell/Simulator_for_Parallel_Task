@@ -158,7 +158,7 @@ def gedf_scheduler(taskset, corenum, time):
                 count2 = count2 + 1
                 temp = Job(taskset[i], t)
                 # print temp.matrix
-                temp.print_DAG()
+                # temp.print_DAG()
                 # print temp.ID, temp.topo_sort_list, temp.pa, temp.deadline, temp.release_time
                 # print "node topo list:"
                 # node_ToPolist_in_job(temp)
@@ -231,6 +231,8 @@ def gedf_scheduler(taskset, corenum, time):
             job.finish_time = t
             deadline = job.deadline
             tardiness = t - deadline
+            response_time = t - job.release_time
+            job.response_time = response_time
             if tardiness <=0:
                 job.tardiness = tardiness
             else:

@@ -242,7 +242,7 @@ def tasksets_generator2(Usum, alpha):
                 task.period = period
                 task.deadline = deadline
                 taskset.append(task)
-                print ID,task
+                #print ID,task
                 break
             else: # targetPeriod <= alpha * L
                 period = period
@@ -252,10 +252,10 @@ def tasksets_generator2(Usum, alpha):
                 task.period = period
                 task.deadline = deadline
                 taskset.append(task)
-                print ID, task
+                #print ID, task
             ID = ID + 1
             Us = Us + (cost / period)
-        print 2, taskset
+        #print 2, taskset
         tasksets.append(taskset)
     return tasksets
 
