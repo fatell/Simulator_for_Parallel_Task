@@ -295,13 +295,13 @@ def gedf_scheduler_FS(taskset, corenum, time):
         L = task.critical_path_length
         C = task.cost
         D = task.deadline
-        cores_num = math.ceil(1.0 * (C - L)/(D - L))
+        cores_num = int(math.ceil(1.0 * (C - L)/(D - L)))
         cores_of_high = cores_of_high +cores_num
         temp_task_set.append(task)
         tem_high_result, high_finish_job, high_m1, high_m2 = gedf_scheduler(temp_task_set, cores_num, time)
         high_result.append(tem_high_result)
         finish_job.extend(high_finish_job)
-    cores_of_low = cores_num - cores_of_high
+    cores_of_low = corenum - cores_of_high
 
     # 将低利用率任务转换为非并行任务
     for task in low_tasks:
