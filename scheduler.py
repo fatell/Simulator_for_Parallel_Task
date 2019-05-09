@@ -6,12 +6,13 @@
 # @File    : scheduler.py
 # @Software: PyCharm
 
-from operator import itemgetter, attrgetter
+#from operator import itemgetter, attrgetter
 from parallelTask  import *
 from job  import *
 from nodeInJob import *
 from datetime import datetime
 import  numpy as np
+import math
 
 '''
 node_ToPolist_in_job：返回拓扑排序后的子任务序列，给定一个job，返回该job的子任务节点序列
@@ -272,8 +273,45 @@ def gedf_scheduler(taskset, corenum, time):
     finish_job.sort(key=lambda item:item.tardiness)
     return result, finish_job, m1, m2
 
+'''
+Federated Scheduling:
+将任务集划分为高利用率任务和低利用率任务，高利用率任务单独分配若干核心调度，
+低利用率任务在一起共享剩下的核心，并且低利用率任务视为非并行任务进行调度
+'''
+def gedf_scheduler_FS(taskset, corenum, time):
+    high_tasks = []
+    low_tasks = []
+    finish_job = []
+    high_result = []
+    for task in taskset:
+        util = task.cost * 1.0 / task.period
+        if util >= 1:
+            high_tasks.append(task)
+        else:
+            low_tasks.append(task)
+    cores_of_high = 0
+    for task in high_tasks:
+        temp_task_set = []
+        L = task.critical_path_length
+        C = task.cost
+        D = task.deadline
+        cores_num = math.ceil(1.0 * (C - L)/(D - L))
+        cores_of_high = cores_of_high +cores_num
+        temp_task_set.append(task)
+        tem_high_result, high_finish_job, high_m1, high_m2 = gedf_scheduler(temp_task_set, cores_num, time)
+        high_result.append(tem_high_result)
+        finish_job.extend(high_finish_job)
+    cores_of_low = cores_num - cores_of_high
 
-
+    # 将低利用率任务转换为非并行任务
+    for task in low_tasks:
+        task.size = 1
+        task.matrix = [[0]]
+        task.critical_path_length = task.cost
+    low_result, low_finish_job, low_m1, low_m2 = gedf_scheduler(low_tasks, cores_of_low, time)
+    finish_job.extend(low_finish_job)
+    finish_job.sort(key=lambda item: item.tardiness)
+    return high_result, low_result, finish_job
 
 
 # 测试数据
