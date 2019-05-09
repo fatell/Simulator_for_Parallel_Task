@@ -1,19 +1,20 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2019/5/2 17:04
+# @Time    : 2019/5/9 16:58
 # @Author  : weichenchen
 # @Site    : 
-# @File    : dataAnalysis.py
+# @File    : dataAnalysisM32.py
 # @Software: PyCharm
+
 import numpy as np
 import matplotlib.pyplot as plt
 '''
 用来数据分析画图
 '''
 if __name__ == '__main__':
-    a = np.loadtxt('./data/m16alpha4.txt')
-    b = np.loadtxt('./data/m16alpha3.txt')
-    c = np.loadtxt('./data/m16alpha2.txt')
+    a = np.loadtxt('./data/m32alpha4.txt')
+    b = np.loadtxt('./data/m32alpha3.txt')
+    c = np.loadtxt('./data/m32alpha2.txt')
     length1 = len(a)
     length2 = len(b)
     length3 = len(c)
@@ -67,7 +68,7 @@ if __name__ == '__main__':
     plt.plot(cx1, cy1, marker='>', ms=10, label='alpha=2')
     plt.xlabel("Total Utilization (Base)")
     plt.ylabel("Avg. of Normalized Max Tardiness")
-    plt.title("Normalized Tardiness by Total Util(m=16,alpha=4)")
+    plt.title("Normalized Tardiness by Total Util(m=32,alpha=4)")
     plt.grid(True)
     plt.legend()
     plt.subplot(222)
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     plt.plot(cx1, cy2, marker='<', ms=10, label='alpha=2')
     plt.xlabel("Total Utilization (Base)")
     plt.ylabel("Avg. of Normalized Average Tardiness")
-    plt.title("Normalized Tardiness by Total Util(m=16,alpha=4)")
+    plt.title("Normalized Tardiness by Total Util(m=32,alpha=4)")
     plt.grid(True)
     plt.legend()
     plt.subplot(223)
@@ -85,7 +86,7 @@ if __name__ == '__main__':
     plt.plot(cx1, cy3, marker='^', ms=10, label='alpha=2')
     plt.xlabel("Total Utilization (Base)")
     plt.ylabel("Avg. of Normalized Max Response Time")
-    plt.title("Normalized Response Time by Total Util(m=16,alpha=4)")
+    plt.title("Normalized Response Time by Total Util(m=32,alpha=4)")
     plt.grid(True)
     plt.legend()
     plt.subplot(224)
@@ -94,12 +95,12 @@ if __name__ == '__main__':
     plt.plot(cx1, cy4, marker='v', ms=10, label='alpha=2')
     plt.xlabel("Total Utilization (Base)")
     plt.ylabel("Avg. of Normalized Average Response Time")
-    plt.title("Normalized Response Time by Total Util(m=16,alpha=4)")
+    plt.title("Normalized Response Time by Total Util(m=32,alpha=4)")
     plt.grid(True)
     plt.legend()
 
     # plt.show()
-    plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/m16.png", format="PNG")
+    plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/m32.png", format="PNG")
     plt.show()
 
 
