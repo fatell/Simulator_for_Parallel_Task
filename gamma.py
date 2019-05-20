@@ -18,8 +18,10 @@ if __name__ == '__main__':
     #
     #
     # z3=st.gamma.pdf(x,2,scale=1)
-    for i in range(5):
-        print i
-        i = i + 1
+    dic = {}
+    dic[1] = 2
+    dic[3] = 3
+    dic[3] = dic[3] - 1
+    print dic
 
 
