@@ -38,6 +38,8 @@ class Job(object):
         self.finish_time = None
         self.tardiness = None
         self.response_time = None
+        self.relative_tardiness = None
+        self.relative_response_time = None
 
     #可视化任务生成DAG图
     def print_DAG(self):

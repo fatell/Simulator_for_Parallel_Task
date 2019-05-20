@@ -7,6 +7,10 @@
 # @Software: PyCharm
 
 from taskSetsGenerator import *
+'''
+数据分析主函数
+参数：finish_job
+'''
 def analyse_finish_job(finish_job, average_deadline):
     max_tardiness = finish_job[-1].tardiness
     finish_job.sort(key=lambda item: item.response_time)
