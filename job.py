@@ -28,6 +28,7 @@ class Job(object):
         self.size = ParallelTask.size
         self.release_time = t
         self.deadline = t + ParallelTask.deadline
+        self.relative_deadline = ParallelTask.deadline
         self.cost = ParallelTask.cost
         self.matrix = deepcopy(ParallelTask.matrix)
         self.pa = ParallelTask.pa
