@@ -108,10 +108,10 @@ if __name__ == '__main__':
     sum8 = 0
     for item in analyse_list_FS:
         print item[0], item[1], item[2], item[3]
-        sum5 = sum1 + item[0]
-        sum6 = sum2 + item[1]
-        sum7 = sum3 + item[2]
-        sum8 = sum4 + item[3]
+        sum5 = sum5 + item[0]
+        sum6 = sum6 + item[1]
+        sum7 = sum7 + item[2]
+        sum8 = sum8 + item[3]
     average5 = 1.0 * sum5 / len(analyse_list_FS)
     average6 = 1.0 * sum6 / len(analyse_list_FS)
     average7 = 1.0 * sum7 / len(analyse_list_FS)
