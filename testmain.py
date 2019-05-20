@@ -12,24 +12,20 @@ from taskSetsGenerator import *
 参数：finish_job
 '''
 def analyse_finish_job(finish_job, average_deadline):
-    max_tardiness = finish_job[-1].tardiness
-    finish_job.sort(key=lambda item: item.response_time)
-    max_response_time = finish_job[-1].response_time
-
-    sum_of_tardiness = 0
-    sum_of_response_time = 0
+    finish_job.sort(key=lambda item: item.relative_tardiness)
+    max_normalized_tardiness = finish_job[-1].relative_tardiness
+    finish_job.sort(key=lambda item: item.relative_response_time)
+    max_normalized_response_time = finish_job[-1].relative_response_time
+    sum_of_relative_tardiness = 0
+    sum_of_relative_response_time = 0
     for job in finish_job:
-        sum_of_tardiness = sum_of_tardiness + job.tardiness
-        sum_of_response_time = sum_of_response_time + job.response_time
-    average_of_tardiness = 1.0 * sum_of_tardiness / len(finish_job)
-    average_of_response_time = 1.0 * sum_of_response_time / len(finish_job)
-    max_normalized_tardiness = 1.0 * max_tardiness / average_deadline
-    average_normalized_tardiness = 1.0 * average_of_tardiness / average_deadline
-    max_normalized_response_time = 1.0 * max_response_time / average_deadline
-    average_normalized_response_time = 1.0 * average_of_response_time / average_deadline
-
+        sum_of_relative_tardiness = sum_of_relative_tardiness + job.relative_tardiness
+        sum_of_relative_response_time = sum_of_relative_response_time + job.relative_response_time
+    average_normalized_tardiness = 1.0 * sum_of_relative_tardiness / len(finish_job)
+    average_normalized_response_time = 1.0 * sum_of_relative_response_time / len(finish_job)
     analyse_result = [max_normalized_tardiness, average_normalized_tardiness, max_normalized_response_time,
                       average_normalized_response_time]
+
     return analyse_result
 
 
@@ -79,10 +75,52 @@ if __name__ == '__main__':
         # for item in finish_job:
         #     print item.ID,":",item.tardiness
         # print "m1:",m1,"m2",m2
+    # analyse_list里每一项都如下所示：
+    # [max_normalized_tardiness, average_normalized_tardiness, max_normalized_response_time,
+    #                       average_normalized_response_time]
     print "GEDF!!!!:"
+    sum1 = 0
+    sum2 = 0
+    sum3 = 0
+    sum4 = 0
     for item in analyse_list:
         print item[0], item[1], item[2], item[3]
+        sum1 = sum1 + item[0]
+        sum2 = sum2 + item[1]
+        sum3 = sum3 + item[2]
+        sum4 = sum4 + item[3]
+    average1 = 1.0 * sum1 / len(analyse_list)
+    average2 = 1.0 * sum2 / len(analyse_list)
+    average3 = 1.0 * sum3 / len(analyse_list)
+    average4 = 1.0 * sum4 / len(analyse_list)
+
+    print "平均max_normalized_tardiness, 平均average_normalized_tardiness," \
+          "平均max_normalized_response_time,平均average_normalized_response_time:"
+    print average1
+    print average2
+    print average3
+    print average4
+
     print "FS!!!!!!:"
+    sum5 = 0
+    sum6 = 0
+    sum7 = 0
+    sum8 = 0
     for item in analyse_list_FS:
         print item[0], item[1], item[2], item[3]
+        sum5 = sum1 + item[0]
+        sum6 = sum2 + item[1]
+        sum7 = sum3 + item[2]
+        sum8 = sum4 + item[3]
+    average5 = 1.0 * sum5 / len(analyse_list)
+    average6 = 1.0 * sum6 / len(analyse_list)
+    average7 = 1.0 * sum7 / len(analyse_list)
+    average8 = 1.0 * sum8 / len(analyse_list)
+
+    print "平均max_normalized_tardiness, 平均average_normalized_tardiness," \
+          "平均max_normalized_response_time,平均average_normalized_response_time:"
+    print average5
+    print average6
+    print average7
+    print average8
 

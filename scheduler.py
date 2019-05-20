@@ -231,13 +231,18 @@ def gedf_scheduler(taskset, corenum, time):
         for job in finish_job_this_second:# 将完成时间保存下来
             job.finish_time = t
             deadline = job.deadline
+            relative_deadline = job.relative_deadline
             tardiness = t - deadline
             response_time = t - job.release_time
             job.response_time = response_time
+            job.relative_response_time = 1.0 * response_time / relative_deadline
             if tardiness <=0:
                 job.tardiness = tardiness
             else:
                 job.tardiness = tardiness
+
+            job.relative_tardiness = 1.0 * tardiness / relative_deadline
+
         finish_job.extend(finish_job_this_second)# 将这一秒完成的作业加入到finish_job里
         count1 = len(finish_job)
         #if t < least_common_mutiple:
