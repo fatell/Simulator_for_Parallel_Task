@@ -6,7 +6,7 @@
 # @File    : taskSetsGenerator.py
 # @Software: PyCharm
 from scheduler import *
-NUM_OF_TASKSETS = 20  #1000
+NUM_OF_TASKSETS = 3  #1000
 CORENUM = 16
 MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
 MAX_NUM_OF_NODES = 25#250

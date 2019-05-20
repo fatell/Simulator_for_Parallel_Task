@@ -30,7 +30,7 @@ def analyse_finish_job(finish_job, average_deadline):
 
 
 if __name__ == '__main__':
-    tasksets = tasksets_generator2(4, 3)
+    tasksets = tasksets_generator2(8, 4)
     print "任务生成完毕！"
     analyse_list = []
     analyse_list_FS = []
@@ -112,10 +112,10 @@ if __name__ == '__main__':
         sum6 = sum2 + item[1]
         sum7 = sum3 + item[2]
         sum8 = sum4 + item[3]
-    average5 = 1.0 * sum5 / len(analyse_list)
-    average6 = 1.0 * sum6 / len(analyse_list)
-    average7 = 1.0 * sum7 / len(analyse_list)
-    average8 = 1.0 * sum8 / len(analyse_list)
+    average5 = 1.0 * sum5 / len(analyse_list_FS)
+    average6 = 1.0 * sum6 / len(analyse_list_FS)
+    average7 = 1.0 * sum7 / len(analyse_list_FS)
+    average8 = 1.0 * sum8 / len(analyse_list_FS)
 
     print "平均max_normalized_tardiness, 平均average_normalized_tardiness," \
           "平均max_normalized_response_time,平均average_normalized_response_time:"
