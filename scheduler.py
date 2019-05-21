@@ -325,14 +325,17 @@ def gedf_scheduler_FS(taskset, corenum, time):
             b = a[0]
             cores_assign_of_high[b] = cores_assign_of_high[b] - 1
             n = n - 1
+    sum_of_high_cores = 0
     for task in high_tasks:
         temp_task_set = []
         temp_task_set.append(task)
         cores_num = int(cores_assign_of_high[task])
+        sum_of_high_cores = sum_of_high_cores + cores_num
         tem_high_result, high_finish_job, high_m1, high_m2 = gedf_scheduler(temp_task_set, cores_num, time)
         high_result.append(tem_high_result)
         finish_job.extend(high_finish_job)
 
+    cores_of_low = corenum - sum_of_high_cores
             # 将低利用率任务转换为非并行任务
     for task in low_tasks:
         task.size = 1
