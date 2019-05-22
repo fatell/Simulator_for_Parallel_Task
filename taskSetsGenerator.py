@@ -262,7 +262,8 @@ def tasksets_generator2(Usum, alpha):
     return tasksets
 
 if __name__ == '__main__':
-    #tasksets = tasksets_generator(24)
+    #print ALPHA
+    #tasksets = tasksets_generator(8)
     #tasksets = tasksets_generator1(24,32)
     tasksets = tasksets_generator2(6,4)
     print len(tasksets)
