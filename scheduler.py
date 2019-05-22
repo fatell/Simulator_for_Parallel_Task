@@ -323,8 +323,9 @@ def gedf_scheduler_FS(taskset, corenum, time):
         while( n > 0 ):
             a = random.sample(cores_assign_of_high.keys(), 1)  # 随机一个字典中的key，第二个参数为限制个数
             b = a[0]
-            cores_assign_of_high[b] = cores_assign_of_high[b] - 1
-            n = n - 1
+            if (cores_assign_of_high[b] >= 2):
+                cores_assign_of_high[b] = cores_assign_of_high[b] - 1
+                n = n - 1
     sum_of_high_cores = 0
     for task in high_tasks:
         temp_task_set = []
