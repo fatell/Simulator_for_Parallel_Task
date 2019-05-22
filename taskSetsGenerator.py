@@ -38,7 +38,7 @@ def tasksets_generator(Usum):
             C = task.cost
             period = L + random.uniform(0, ALPHA * (C - L)) # 生成合规的周期
             period = int(round(period))
-            period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                  # 因此可以保证至少是alpha倍
             u = 1.0 * C / period
             deadline = period
@@ -59,7 +59,7 @@ def tasksets_generator(Usum):
             print "2ID:", ID
             cost = task.cost
             period = int(cost/targetUtil + 1)
-            period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                  # 因此可以保证至少是alpha倍
             deadline = period
             task.period = period
@@ -74,7 +74,7 @@ def tasksets_generator(Usum):
             task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
             cost = task.cost
             period = int(1.0*cost / remainUtil + 1)
-            period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
             # 因此可以保证至少是alpha倍
             deadline = period
             task.period = period
@@ -85,7 +85,7 @@ def tasksets_generator(Usum):
             for j in range(num):
                 task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
                 period = task.cost
-                period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+                # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
                 # 因此可以保证至少是alpha倍
                 deadline = period
                 task.period = period
@@ -119,7 +119,7 @@ def tasksets_generator1(Usum, m):
             L = task.critical_path_length
             C = task.cost
             period = int((L + C/(0.5*m))*(1+0.25*random.gammavariate(2,1))) # 生成合规的周期
-            period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
             # 因此可以保证至少是alpha倍
             u = 1.0 * C / period
             deadline = period
@@ -140,7 +140,7 @@ def tasksets_generator1(Usum, m):
             #print "2ID:", ID
             cost = task.cost
             period = int(cost/targetUtil + 1)
-            period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
             # 因此可以保证至少是alpha倍
             deadline = period
             task.period = period
@@ -155,7 +155,7 @@ def tasksets_generator1(Usum, m):
             task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
             cost = task.cost
             period = int(1.0*cost / remainUtil + 1)
-            period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
             # 因此可以保证至少是alpha倍
             deadline = period
             task.period = period
@@ -166,7 +166,7 @@ def tasksets_generator1(Usum, m):
             for j in range(num):
                 task = ParallelTask(ID, n, P, MIN_WCET_OF_NODE, MAX_WCET_OF_NODE, 100, 100, 100, 0, "")
                 period = task.cost
-                period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+                # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
                 # 因此可以保证至少是alpha倍
                 deadline = period
                 task.period = period
@@ -212,7 +212,7 @@ def tasksets_generator2(Usum, alpha):
             L = task.critical_path_length # 返回该任务的关键路径长度
             C = task.cost # 返回WCET
             period = alpha * L # 设置周期为关键路径长度的alpha倍 事实上应该设为至少alpha倍
-            period = roundup_pow_of_two(period) # 将period设置为最靠近的2的幂指数 肯定是放大了的
+            # period = roundup_pow_of_two(period) # 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                 # 因此可以保证至少是alpha倍
             u = 1.0 * C / period # 计算该任务的利用率
             deadline = period
@@ -238,7 +238,7 @@ def tasksets_generator2(Usum, alpha):
             targetPeriod = int(cost / targetUtil + 1) #根据剩余利用率反推出来所需的周期
             if(targetPeriod > period): # 如果所需要的周期大于计算得到周期 那正好可以使用前者
                 period = targetPeriod
-                period = roundup_pow_of_two(period)# 将period设置为最靠近的2的幂指数 肯定是放大了的
+                # period = roundup_pow_of_two(period)# 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                    # 因此可以保证至少是alpha倍
                 deadline = period
                 task.period = period
@@ -248,7 +248,7 @@ def tasksets_generator2(Usum, alpha):
                 break
             else: # targetPeriod <= alpha * L
                 period = period
-                period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
+                # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                      # 因此可以保证至少是alpha倍
                 deadline = period
                 task.period = period
