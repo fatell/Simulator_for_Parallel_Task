@@ -31,6 +31,8 @@ def analyse_finish_job(finish_job, average_deadline):
 
 if __name__ == '__main__':
     tasksets = tasksets_generator(8)
+
+
     print "任务生成完毕！"
     analyse_list = []
     analyse_list_FS = []
