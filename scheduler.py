@@ -153,7 +153,7 @@ def gedf_scheduler(taskset, corenum, time):
             # 若这两个数相等则说明可以bound住
     for i in taskset:
         period_set.append(i.period)
-    least_common_mutiple = lcmAll(period_set)# 最小公倍周期
+    #least_common_mutiple = lcmAll(period_set)# 最小公倍周期
     job_set = []
     nodes_to_be_sheduled = []
     while(t <= time): # 每到来一个时刻都和周期列表里的每一个周期进行对比，相等的就令该周期所属的任务释放一个新作业
