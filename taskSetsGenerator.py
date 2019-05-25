@@ -6,7 +6,7 @@
 # @File    : taskSetsGenerator.py
 # @Software: PyCharm
 from scheduler import *
-NUM_OF_TASKSETS = 3  #1000
+NUM_OF_TASKSETS = 30  #1000
 CORENUM = 16
 MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
 MAX_NUM_OF_NODES = 25#250
@@ -211,7 +211,7 @@ def tasksets_generator2(Usum, alpha):
             # 一些参数并不需要 因此先随便指定 后面再进行修改 例如周期和截止时间
             L = task.critical_path_length # 返回该任务的关键路径长度
             C = task.cost # 返回WCET
-            period = alpha * L # 设置周期为关键路径长度的alpha倍 事实上应该设为至少alpha倍
+            period = int(alpha * L) # 设置周期为关键路径长度的alpha倍 事实上应该设为至少alpha倍
             # period = roundup_pow_of_two(period) # 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                 # 因此可以保证至少是alpha倍
             u = 1.0 * C / period # 计算该任务的利用率
@@ -247,7 +247,7 @@ def tasksets_generator2(Usum, alpha):
                 #print ID,task
                 break
             else: # targetPeriod <= alpha * L
-                period = period
+                period = int(period)
                 # period = roundup_pow_of_two(period)  # 将period设置为最靠近的2的幂指数 肯定是放大了的
                                                      # 因此可以保证至少是alpha倍
                 deadline = period
@@ -264,7 +264,7 @@ def tasksets_generator2(Usum, alpha):
 if __name__ == '__main__':
     #print ALPHA
     #tasksets = tasksets_generator(8)
-    #tasksets = tasksets_generator1(24,32)
+    # tasksets = tasksets_generator1(24,32)
     tasksets = tasksets_generator2(6,4)
     print len(tasksets)
     for i in range(NUM_OF_TASKSETS):
@@ -284,4 +284,4 @@ if __name__ == '__main__':
         bilv = 1.0 * heavy / (heavy + light)
         least_common_mutiple = return_max_period(period_list)
         print "第", i, "个taskset的总利用率是：", Us, len(tasksets[i]),"个任务", "重占比：", bilv
-        print "最小公倍周期是：", least_common_mutiple
+        print "最大公倍周期是：", least_common_mutiple
