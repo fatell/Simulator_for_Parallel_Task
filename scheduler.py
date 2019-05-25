@@ -278,6 +278,26 @@ def gedf_scheduler(taskset, corenum, time):
     finish_job.sort(key=lambda item:item.tardiness)
     return result, finish_job, m1, m2
 
+
+'''
+gedf modify scheduling:
+修改版GEDF调度算法，其中将轻任务按照FS那样转换成非并行任务，但转换后的非并行任务仍然像GEDF那样全局调度，并不会对每个
+重任务单独分配一些核心
+'''
+def gedf_modify_scheduler(taskset, corenum, time):
+    # 将轻任务修改为非并行任务
+    for task in taskset:
+        util = task.cost * 1.0 / task.period
+        if util < 1:
+            task.size = 1
+            task.matrix = [[0]]
+            task.critical_path_length = task.cost
+    # 调用gedf_scheduler
+    result, finish_job, m1, m2 = gedf_scheduler(taskset, corenum, time)
+    return result, finish_job
+
+
+
 '''
 Federated Scheduling:
 将任务集划分为高利用率任务和低利用率任务，高利用率任务单独分配若干核心调度，
