@@ -282,6 +282,6 @@ if __name__ == '__main__':
                 light = light + 1
             Us = Us + util
         bilv = 1.0 * heavy / (heavy + light)
-        least_common_mutiple = lcmAll(period_list)
+        least_common_mutiple = return_max_period(period_list)
         print "第", i, "个taskset的总利用率是：", Us, len(tasksets[i]),"个任务", "重占比：", bilv
         print "最小公倍周期是：", least_common_mutiple
