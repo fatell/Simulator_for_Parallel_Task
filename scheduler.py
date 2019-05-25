@@ -110,6 +110,12 @@ def lcm(a, b):
 def lcmAll(seq):
     return reduce(lcm, seq)
 
+'''
+返回任务集的最大周期值
+'''
+def return_max_period(seq):
+    return max(seq)
+
 
 '''
 gedf_scheduler：调度器函数
