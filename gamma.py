@@ -18,10 +18,7 @@ if __name__ == '__main__':
     #
     #
     # z3=st.gamma.pdf(x,2,scale=1)
-    dic = {}
-    dic[1] = 2
-    dic[3] = 3
-    dic[3] = dic[3] - 1
-    print dic
+    a,b,c = [],[],[]
+    print a, b, c
 
 
