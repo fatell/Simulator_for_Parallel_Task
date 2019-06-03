@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # from pandas import DataFrame
-NUM_OF_TASKSETS = 300  #1000
+NUM_OF_TASKSETS = 100  #1000
 CORENUM = 16
 MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
 MAX_NUM_OF_NODES = 25#250
@@ -79,24 +79,24 @@ if __name__ == '__main__':
     plt.subplot(221)
     ax = sns.violinplot(x="util", y="WCET", data=dict, cut=0)
     # ax.set_title("Worst-case execution times")
-    plt.xlabel(u"利用率")
-    plt.ylabel(u"最坏执行时间")
+    plt.xlabel(u"利用率", fontsize=18)
+    plt.ylabel(u"最坏执行时间", fontsize=18)
     plt.subplot(222)
     ax = sns.violinplot(x="util", y="deadline", data=new_dict, cut=0)
     # ax.set_title("Deadline")
-    plt.xlabel(u"利用率")
-    plt.ylabel(u"相对截止时间")
+    plt.xlabel(u"利用率", fontsize=18)
+    plt.ylabel(u"相对截止时间", fontsize=18)
     plt.subplot(223)
     ax = sns.violinplot(x="util", y="WCET_to_CriticalPathLength", data=dict, cut=0)
     # ax.set_title("Worst-case execution times to Critical Path Ratio")
-    plt.xlabel(u"利用率")
-    plt.ylabel(u"最坏执行时间/关键路径长度")
+    plt.xlabel(u"利用率", fontsize=18)
+    plt.ylabel(u"最坏执行时间/关键路径长度", fontsize=18)
     plt.subplot(224)
     ax = sns.violinplot(x="util", y="density", data=dict, cut=0)
     # ax.set_title("Density")
-    plt.xlabel(u"利用率")
-    plt.ylabel(u"密度")
+    plt.xlabel(u"利用率", fontsize=18)
+    plt.ylabel(u"密度", fontsize=18)
 
-    plt.suptitle(u"DAG任务集静态属性分布（隐式截止时间，16核心，Ph = 0.50，Pl = 0.50)")
+    plt.suptitle(u"DAG任务集静态属性分布（隐式截止时间，16核心，Ph = 0.50，Pl = 0.50)", fontsize=18)
     plt.savefig(u"/Users/weichenchen/Desktop/实时系统/实验结果/m16HLR23.png", format="PNG")
     plt.show()
