@@ -56,8 +56,8 @@ if __name__ == '__main__':
                 dict["WCET_to_CriticalPathLength"].append(WCET_to_CriticalPathLength)
                 # n5_list = dict["density"]
                 dict["density"].append(density)
-    print max(dict["Deadline"]), min((dict["Deadline"]))
-    print dict["Deadline"]
+    #print max(dict["Deadline"]), min((dict["Deadline"]))
+    #print dict["Deadline"]
     new_Deadline = []
     new_index = []
     for index, data in enumerate(dict["Deadline"]):
@@ -75,30 +75,32 @@ if __name__ == '__main__':
     new_dict = {"util":new_Util, "deadline":new_Deadline}
 
     plt.figure(figsize=(16, 10))
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(221)
     ax = sns.violinplot(x="util", y="WCET", data=dict, cut=0)
     # ax.set_title("Worst-case execution times")
-    plt.xlabel("Utilization")
-    plt.ylabel("Worst-case execution times")
+    plt.xlabel(u"利用率")
+    plt.ylabel(u"最坏执行时间")
     plt.subplot(222)
     ax = sns.violinplot(x="util", y="deadline", data=new_dict, cut=0)
     # ax.set_title("Deadline")
-    plt.xlabel("Utilization")
-    plt.ylabel("Deadline")
+    plt.xlabel(u"利用率")
+    plt.ylabel(u"相对截止时间")
     plt.subplot(223)
     ax = sns.violinplot(x="util", y="WCET_to_CriticalPathLength", data=dict, cut=0)
     # ax.set_title("Worst-case execution times to Critical Path Ratio")
-    plt.xlabel("Utilization")
-    plt.ylabel("Worst-case execution times to Critical Path Ratio")
+    plt.xlabel(u"利用率")
+    plt.ylabel(u"最坏执行时间/关键路径长度")
     plt.subplot(224)
     ax = sns.violinplot(x="util", y="density", data=dict, cut=0)
     # ax.set_title("Density")
-    plt.xlabel("Utilization")
-    plt.ylabel("Density")
+    plt.xlabel(u"利用率")
+    plt.ylabel(u"密度")
 
-    plt.suptitle("DAG task set statistics (implicit-deadline, 16 processors, Ph = 0.50, Pl = 0.50)")
-    plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/m16HLR23.png", format="PNG")
+    plt.suptitle(u"DAG任务集静态属性分布（隐式截止时间，16核心，Ph = 0.50，Pl = 0.50)")
+    plt.savefig(u"/Users/weichenchen/Desktop/实时系统/实验结果/m16HLR23not.png", format="PNG")
     plt.show()
+
 
 
 
