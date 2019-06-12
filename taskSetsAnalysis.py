@@ -13,15 +13,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # from pandas import DataFrame
-NUM_OF_TASKSETS = 100  #1000
+NUM_OF_TASKSETS = 100  # 1000
 CORENUM = 16
-MIN_NUM_OF_NODES = 5#50 #每个任务中子节点个数范围
-MAX_NUM_OF_NODES = 25#250
-MIN_WCET_OF_NODE = 20#50 #每个子节点的WCET将从这个范围中随机选取
-MAX_WCET_OF_NODE = 70#100
-P = 0.6 #成边概率
-ALPHA = 2 #用来控制任务集的轻重任务比例，1/alpha代表重任务在任务集的比例
-
+MIN_NUM_OF_NODES = 5  # 50 #每个任务中子节点个数范围
+MAX_NUM_OF_NODES = 25  # 250
+MIN_WCET_OF_NODE = 20  # 50 #每个子节点的WCET将从这个范围中随机选取
+MAX_WCET_OF_NODE = 70  # 100
+P = 0.6  # 成边概率
+ALPHA = 2  # 用来控制任务集的轻重任务比例，1/alpha代表重任务在任务集的比例
 
 if __name__ == '__main__':
     # ratio_base = 0.1
@@ -34,8 +33,8 @@ if __name__ == '__main__':
             "Deadline": [],
             "WCET_to_CriticalPathLength": [],
             "density": []}
-    for i in range(CORENUM/2, CORENUM + 1, 1):
-        #print i
+    for i in range(CORENUM / 2, CORENUM + 1, 1):
+        # print i
         # tasksets = tasksets_generator1(i, CORENUM)
         tasksets = tasksets_generator(i)
         for taskset in tasksets:
@@ -56,8 +55,8 @@ if __name__ == '__main__':
                 dict["WCET_to_CriticalPathLength"].append(WCET_to_CriticalPathLength)
                 # n5_list = dict["density"]
                 dict["density"].append(density)
-    #print max(dict["Deadline"]), min((dict["Deadline"]))
-    #print dict["Deadline"]
+    # print max(dict["Deadline"]), min((dict["Deadline"]))
+    # print dict["Deadline"]
     new_Deadline = []
     new_index = []
     for index, data in enumerate(dict["Deadline"]):
@@ -71,8 +70,7 @@ if __name__ == '__main__':
         if i in new_index:
             new_Util.append(dict["util"][i])
 
-
-    new_dict = {"util":new_Util, "deadline":new_Deadline}
+    new_dict = {"util": new_Util, "deadline": new_Deadline}
 
     plt.figure(figsize=(16, 10))
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
