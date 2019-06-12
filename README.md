@@ -4,6 +4,7 @@
 - 目前实现了GEDF，GEDF_modify，FS调度算法
 - 调度模块可扩展，只需在scheduler.py模块里添加新的调度算法实现即可
 ## 主要模块说明
-- 主要模块类:
-  1. parallerTask.py:并行任务类
+- parallerTask.py: 并行任务类
+- job.py: 作业类
+- nodeInJob.py: 作业中子节点类
   
