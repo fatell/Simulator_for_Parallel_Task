@@ -6,20 +6,22 @@
 # @File    : scheduler.py
 # @Software: PyCharm
 
-#from operator import itemgetter, attrgetter
-from parallelTask  import *
-from job  import *
+# from operator import itemgetter, attrgetter
+from parallelTask import *
+from job import *
 from nodeInJob import *
 from datetime import datetime
-import  numpy as np
+import numpy as np
 import math
 
 '''
 node_ToPolist_in_job：返回拓扑排序后的子任务序列，给定一个job，返回该job的子任务节点序列
 子节点: 子节点ID cost 截止时间 释放时间 完成时间
 '''
+
+
 def node_ToPolist_in_job(job):
-    #size = job.size
+    # size = job.size
     node_ToPolist = []
     prefixID = job.ID
     for i in job.topo_sort_list:
@@ -32,9 +34,13 @@ def node_ToPolist_in_job(job):
     for i in node_ToPolist:
         print i.ID, i.cost, i.deadline, i.release_time
     return node_ToPolist
+
+
 '''
 pop_nodes_of_zero_in_degree: 返回入度为0的节点
 '''
+
+
 def pop_nodes_of_zero_in_degree(job):
     n = job.size
     # 获取所有入度为0的结点
@@ -55,6 +61,7 @@ def pop_nodes_of_zero_in_degree(job):
             q.append(node)
     return q
 
+
 '''
 delete_node_from_jobDAG: 从job_set中删除对应作业DAG的节点
     删除的节点是全局候选队列中执行时间变为0的节点，因此可能不止一个。
@@ -62,8 +69,10 @@ delete_node_from_jobDAG: 从job_set中删除对应作业DAG的节点
     
     返回：被删除的job，若没有整个被删除了的job，就返回空列表
 '''
+
+
 def delete_node_from_jobDAG(job_set, nodes):
-    finish_job = [] # 存放完成的作业，也就是需要从job_set中删除的作业
+    finish_job = []  # 存放完成的作业，也就是需要从job_set中删除的作业
     for node in nodes:
         temp = node.ID.split("-")
         ID = temp[0] + "-" + temp[1]
@@ -71,10 +80,10 @@ def delete_node_from_jobDAG(job_set, nodes):
         job_ID = ID
         node_ID = int(temp[2])
         for job in job_set:
-            if job.ID == job_ID:#确定是删除哪一个job中的节点
+            if job.ID == job_ID:  # 确定是删除哪一个job中的节点
                 for i in range(job.size):
-                    job.matrix[node_ID][i] = 2 #将以该点为起点的边设为2 代表删除这条边
-    #判断job_set中的作业是否有整个被删除了的，若有则删除这个作业
+                    job.matrix[node_ID][i] = 2  # 将以该点为起点的边设为2 代表删除这条边
+    # 判断job_set中的作业是否有整个被删除了的，若有则删除这个作业
     for job in job_set:
         flag = True
         for i in range(job.size):
@@ -96,6 +105,7 @@ def bubble_sort(nodes):
                 nodes[i], nodes[j] = nodes[j], nodes[i]
     return nodes
 
+
 # 两个数的最大公约数
 def gcd(a, b):
     r = a % b
@@ -103,16 +113,23 @@ def gcd(a, b):
         return gcd(b, r)
     else:
         return b
-#两个数的最小公倍数
+
+
+# 两个数的最小公倍数
 def lcm(a, b):
     return a * b / gcd(a, b)
-#一串数字的最小公倍数
+
+
+# 一串数字的最小公倍数
 def lcmAll(seq):
     return reduce(lcm, seq)
+
 
 '''
 返回任务集的最大周期值
 '''
+
+
 def return_max_period(seq):
     return max(seq)
 
@@ -136,28 +153,30 @@ gedf_scheduler：调度器函数
    更新方法是将job_set集合中的每一个作业的入度为零的节点加入到全局候选队列，
    加入时需要去重，并按照ddl排序
 '''
+
+
 def gedf_scheduler(taskset, corenum, time):
     # for task in taskset:
     #     task.print_DAG()
 
-    result = np.zeros([time + 1, corenum], dtype = "S10") # 结果数组，用来保存执行顺序
+    result = np.zeros([time + 1, corenum], dtype="S10")  # 结果数组，用来保存执行顺序
     t = 0
-    tasknum = len(taskset)# 任务总个数
+    tasknum = len(taskset)  # 任务总个数
     period_set = []  # 周期列表 用来保存所有任务的周期 相同的周期也保存
     finish_job = []  # 存放执行完成的作业
     count1 = 0
     count2 = 0
 
-    m1 = -1 # 用来保存最小公倍周期内完成的作业数
-    m2 = -2 # 用来存放最小公倍周期内释放的作业数
-            # 若这两个数相等则说明可以bound住
+    m1 = -1  # 用来保存最小公倍周期内完成的作业数
+    m2 = -2  # 用来存放最小公倍周期内释放的作业数
+    # 若这两个数相等则说明可以bound住
     for i in taskset:
         period_set.append(i.period)
-    #least_common_mutiple = lcmAll(period_set)# 最小公倍周期
+    # least_common_mutiple = lcmAll(period_set)# 最小公倍周期
     job_set = []
     nodes_to_be_sheduled = []
-    while(t <= time): # 每到来一个时刻都和周期列表里的每一个周期进行对比，相等的就令该周期所属的任务释放一个新作业
-        #step1&&step2：判断该时刻有没有周期来到，即是否需要释放新的作业。
+    while (t <= time):  # 每到来一个时刻都和周期列表里的每一个周期进行对比，相等的就令该周期所属的任务释放一个新作业
+        # step1&&step2：判断该时刻有没有周期来到，即是否需要释放新的作业。
         for i in range(tasknum):
             if t % period_set[i] == 0:
                 # print "taskID",taskset[i].ID
@@ -170,7 +189,7 @@ def gedf_scheduler(taskset, corenum, time):
                 # print "node topo list:"
                 # node_ToPolist_in_job(temp)
                 job_set.append(temp)
-        #step3：根据job_set集合更新全局候选队列nodes_to_be_sheduled
+        # step3：根据job_set集合更新全局候选队列nodes_to_be_sheduled
         #       更新方法是将job_set集合中的每一个作业的入度为零的节点加入到全局候选队列
         #       全局候选队列中的节点按照ddl排序，小的在前。
         # for job in job_set:
@@ -192,27 +211,27 @@ def gedf_scheduler(taskset, corenum, time):
             else:
                 nodes_to_be_sheduled.append(node)
         nodes_to_be_sheduled = sorted(nodes_to_be_sheduled, key=lambda node: node.deadline)
-        #nodes_to_be_sheduled = bubble_sort(nodes_to_be_sheduled)
+        # nodes_to_be_sheduled = bubble_sort(nodes_to_be_sheduled)
         # print t, "秒前备选节点信息："
         # print len(job_set), "待执行作业"
         # for node in nodes_to_be_sheduled:
         #     print node.ID, node.cost, node.deadline
-        #step4：模拟执行：先判断全局候选队列中备选节点够不够一个核心上放一个，
+        # step4：模拟执行：先判断全局候选队列中备选节点够不够一个核心上放一个，
         #       如果不够，就全选放在核心上执行，此时有核心空闲，如果够，就按照下面执行
         #       按照核心数m从全局候选队列中选取前m个节点执行（即cost-1操作），
         #       同时保存执行记录到result二维数组，行代表时刻，列代表核心
         nodes_num = len(nodes_to_be_sheduled)
-        if nodes_num >= corenum:# 如果够一个核心一个
+        if nodes_num >= corenum:  # 如果够一个核心一个
             for i in range(corenum):
                 executionID = nodes_to_be_sheduled[i].ID
                 result[t][i] = executionID
                 nodes_to_be_sheduled[i].cost = nodes_to_be_sheduled[i].cost - 1
-        else:# 如果不够一个核心一个
+        else:  # 如果不够一个核心一个
             for i in range(nodes_num):
                 executionID = nodes_to_be_sheduled[i].ID
                 result[t][i] = executionID
                 nodes_to_be_sheduled[i].cost = nodes_to_be_sheduled[i].cost - 1
-        #step5：判断全局候选队列中是否有cost=0的节点：如果有，则从全局候选队列中删除该节点，
+        # step5：判断全局候选队列中是否有cost=0的节点：如果有，则从全局候选队列中删除该节点，
         #       同时删除job_set中对应的job图中的点，同时判断job_set中的作业是否有整个被删除了的，
         #       若有则删除这个作业再根据job_set集合更新全局候选队列nodes_to_be_sheduled，
         #       更新方法是将job_set集合中的每一个作业的入度为零的节点加入到全局候选队列，加入时需要去重，并按照ddl排序
@@ -233,8 +252,8 @@ def gedf_scheduler(taskset, corenum, time):
         # print len(job_set), "待执行作业"
         # for node in nodes_to_be_sheduled:
         #     print node.ID, node.cost, node.deadline
-        finish_job_this_second = delete_node_from_jobDAG(job_set, nodes_to_be_deleted)#删除操作 返回这一秒完成的job
-        for job in finish_job_this_second:# 将完成时间保存下来
+        finish_job_this_second = delete_node_from_jobDAG(job_set, nodes_to_be_deleted)  # 删除操作 返回这一秒完成的job
+        for job in finish_job_this_second:  # 将完成时间保存下来
             job.finish_time = t
             deadline = job.deadline
             relative_deadline = job.relative_deadline
@@ -242,23 +261,23 @@ def gedf_scheduler(taskset, corenum, time):
             response_time = t - job.release_time
             job.response_time = response_time
             job.relative_response_time = 1.0 * response_time / relative_deadline
-            if tardiness <=0:
+            if tardiness <= 0:
                 job.tardiness = tardiness
             else:
                 job.tardiness = tardiness
 
             job.relative_tardiness = 1.0 * tardiness / relative_deadline
 
-        finish_job.extend(finish_job_this_second)# 将这一秒完成的作业加入到finish_job里
+        finish_job.extend(finish_job_this_second)  # 将这一秒完成的作业加入到finish_job里
         count1 = len(finish_job)
-        #if t < least_common_mutiple:
+        # if t < least_common_mutiple:
         m1 = count1
         m2 = count2
         nodes_list = []
-        for job in job_set:# 再次从job_set中获取入度为0的节点
+        for job in job_set:  # 再次从job_set中获取入度为0的节点
             nodes = pop_nodes_of_zero_in_degree(job)
             nodes_list.extend(nodes)
-        for node in nodes_list:# 加入到全局候选队列时需要去重复
+        for node in nodes_list:  # 加入到全局候选队列时需要去重复
             flag = True
             for i in nodes_to_be_sheduled:
                 if node.ID == i.ID:
@@ -267,9 +286,9 @@ def gedf_scheduler(taskset, corenum, time):
                 continue
             else:
                 nodes_to_be_sheduled.append(node)
-        #sorted(nodes_to_be_sheduled, key=lambda node: node.deadline)
+        # sorted(nodes_to_be_sheduled, key=lambda node: node.deadline)
         nodes_to_be_sheduled = sorted(nodes_to_be_sheduled, key=lambda node: node.deadline)
-        #nodes_to_be_sheduled = bubble_sort(nodes_to_be_sheduled)
+        # nodes_to_be_sheduled = bubble_sort(nodes_to_be_sheduled)
         # print t, "秒后再次备选节点信息："
         # for node in nodes_to_be_sheduled:
         #     print node.ID, node.cost, node.deadline
@@ -280,8 +299,8 @@ def gedf_scheduler(taskset, corenum, time):
     #     for j in (pop_nodes_of_zero_in_degree(i)):
     #         print j.ID
     #     i.print_DAG()
-    #print result
-    finish_job.sort(key=lambda item:item.tardiness)
+    # print result
+    finish_job.sort(key=lambda item: item.tardiness)
     return result, finish_job, m1, m2
 
 
@@ -290,6 +309,8 @@ gedf modify scheduling:
 修改版GEDF调度算法，其中将轻任务按照FS那样转换成非并行任务，但转换后的非并行任务仍然像GEDF那样全局调度，并不会对每个
 重任务单独分配一些核心
 '''
+
+
 def gedf_modify_scheduler(taskset, corenum, time):
     # 将轻任务修改为非并行任务
     for task in taskset:
@@ -303,12 +324,13 @@ def gedf_modify_scheduler(taskset, corenum, time):
     return result, finish_job
 
 
-
 '''
 Federated Scheduling:
 将任务集划分为高利用率任务和低利用率任务，高利用率任务单独分配若干核心调度，
 低利用率任务在一起共享剩下的核心，并且低利用率任务视为非并行任务进行调度
 '''
+
+
 def gedf_scheduler_FS(taskset, corenum, time):
     high_tasks = []
     low_tasks = []
@@ -322,34 +344,21 @@ def gedf_scheduler_FS(taskset, corenum, time):
             low_tasks.append(task)
     cores_of_high = 0
     cores_assign_of_high = {}
-    for task in high_tasks:
+    for task in high_tasks:  # 给每一个重任务分配专有核心集
         L = task.critical_path_length
         C = task.cost
         D = task.deadline
-        cores_num = int(math.ceil(1.0 * (C - L)/(D - L)))
+        cores_num = int(math.ceil(1.0 * (C - L) / (D - L)))
         cores_assign_of_high[task] = cores_num
         cores_of_high = cores_of_high + cores_num
-
-
-    # for task in high_tasks:
-    #     temp_task_set = []
-    #     L = task.critical_path_length
-    #     C = task.cost
-    #     D = task.deadline
-    #     cores_num = int(math.ceil(1.0 * (C - L)/(D - L)))
-    #     cores_of_high = cores_of_high +cores_num
-    #     temp_task_set.append(task)
-    #     tem_high_result, high_finish_job, high_m1, high_m2 = gedf_scheduler(temp_task_set, cores_num, time)
-    #     high_result.append(tem_high_result)
-    #     finish_job.extend(high_finish_job)
-    cores_of_low = corenum - cores_of_high
-    if(cores_of_low < 0):
+    cores_of_low = corenum - cores_of_high  # 计算给轻任务剩下的核心数
+    if cores_of_low < 0:
         over_occupy = cores_of_high - corenum
-        n = over_occupy# 选取n个任务进行所需核心数减一操作
-        while( n > 0 ):
+        n = over_occupy  # 选取n个任务进行所需核心数减一操作
+        while n > 0:
             a = random.sample(cores_assign_of_high.keys(), 1)  # 随机一个字典中的key，第二个参数为限制个数
             b = a[0]
-            if (cores_assign_of_high[b] >= 2):
+            if cores_assign_of_high[b] >= 2:
                 cores_assign_of_high[b] = cores_assign_of_high[b] - 1
                 n = n - 1
     sum_of_high_cores = 0
@@ -363,7 +372,7 @@ def gedf_scheduler_FS(taskset, corenum, time):
         finish_job.extend(high_finish_job)
 
     cores_of_low = corenum - sum_of_high_cores
-            # 将低利用率任务转换为非并行任务
+    # 将低利用率任务转换为非并行任务
     for task in low_tasks:
         task.size = 1
         task.matrix = [[0]]
@@ -428,5 +437,3 @@ if __name__ == '__main__':
         if m1 == m2:
             num_of_bounded = num_of_bounded + 1
         print "bound住的次数和运行的总次数为：", num_of_bounded, sum + 1
-
-
