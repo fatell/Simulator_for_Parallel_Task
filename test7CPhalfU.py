@@ -9,6 +9,7 @@
 from scheduler import *
 from datetime import datetime
 import os
+
 '''
 U = 0.8+0.5+0.8+0.8+0.8+0.8=4.5
 不控制critical path 长度的时候，5次有2次不能bound，因此加上关键路径长度为0.5倍
@@ -26,7 +27,7 @@ if __name__ == '__main__':
         num2 = 0
         taskset = []
         # 产生5个0.8的任务且cp<=0.5d
-        while( num1 < 5):
+        while (num1 < 5):
             task = ParallelTask(0, 5, 0.7, 1, 5, 20, 25, 25, 1, str1)
             up_of_cp = task.deadline * 0.5
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
         for j in range(len(taskset)):
             taskset[j].ID = j
         for j in range(len(taskset)):
-            #print taskset[j].ID
+            # print taskset[j].ID
             taskset[j].print_DAG()
         # test_gedf_scheduler(taskset,3,10)
         corenum = 5

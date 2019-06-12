@@ -8,6 +8,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+
 '''
 用来数据分析画图
 '''
@@ -123,7 +124,6 @@ if __name__ == '__main__':
         my2.append(m[i][2])
         my3.append(m[i][3])
         my4.append(m[i][4])
-
 
     # print x1
     # print y1
@@ -393,5 +393,3 @@ if __name__ == '__main__':
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
     plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/NEWm32alpha1-5.png", format="PNG")
     plt.show()
-
-

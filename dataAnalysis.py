@@ -7,10 +7,10 @@
 # @Software: PyCharm
 import numpy as np
 import matplotlib.pyplot as plt
+
 '''
 用来数据分析画图
 '''
-
 
 if __name__ == '__main__':
     a = np.loadtxt('./data/5-26/Gm16alpha4.txt')
@@ -125,7 +125,6 @@ if __name__ == '__main__':
         my3.append(m[i][3])
         my4.append(m[i][4])
 
-
     # print x1
     # print y1
 
@@ -195,10 +194,10 @@ if __name__ == '__main__':
     # plt.title("Normalized Response Time")
     plt.grid(True)
     plt.legend()
-    #plt.suptitle(u"任务集调度分析（隐式截止期限，16核心，alpha=4）", fontsize=22)
+    # plt.suptitle(u"任务集调度分析（隐式截止期限，16核心，alpha=4）", fontsize=22)
     # plt.suptitle("task sets scheduling analysis (implicit-deadline, 16 processors, alpha=4)", fontsize=22)
     # plt.show()
-    plt.subplots_adjust(wspace = 0.3, hspace = 0.3)
+    plt.subplots_adjust(wspace=0.3, hspace=0.3)
     plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/NEWm16alpha4.png", format="PNG")
     plt.show()
 
@@ -396,5 +395,3 @@ if __name__ == '__main__':
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
     plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/NEWm16alpha1-5.png", format="PNG")
     plt.show()
-
-

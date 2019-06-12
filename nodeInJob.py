@@ -15,7 +15,9 @@ release_time：释放时间，同所属作业的释放时间相同
 finish_time：该节点的完成时间
 '''
 
-from copy import copy,deepcopy
+from copy import copy, deepcopy
+
+
 class NodeInJob(object):
     def __init__(self, ID, cost, deadline, t):
         self.ID = ID

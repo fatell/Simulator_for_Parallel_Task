@@ -7,6 +7,7 @@
 # @Software: PyCharm
 import numpy as np
 import matplotlib.pyplot as plt
+
 '''
 任务轻重比实验结果分析16核心
 '''
@@ -347,5 +348,3 @@ if __name__ == '__main__':
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
     plt.savefig("/Users/weichenchen/Desktop/实时系统/实验结果/NEWm32heavy_rate5.png", format="PNG")
     plt.show()
-
-

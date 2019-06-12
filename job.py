@@ -8,8 +8,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
-from copy import copy,deepcopy
+from copy import copy, deepcopy
 import os
+
 '''
 Job类：task周期产生的作业
 ID：x-y，x代表任务ID，属于哪一个任务；y代表该作业是该任务释放的第几个作业
@@ -22,9 +23,11 @@ pa：每个节点上的执行时间，例如有五个节点，执行时间分别
 critical_path_length：关键路径长度
 topo_sort_list：拓扑排序结果
 '''
+
+
 class Job(object):
     def __init__(self, ParallelTask, t):
-        self.ID = str(ParallelTask.ID) + '-' + str(t/ParallelTask.period)
+        self.ID = str(ParallelTask.ID) + '-' + str(t / ParallelTask.period)
         self.size = ParallelTask.size
         self.release_time = t
         self.deadline = t + ParallelTask.deadline
@@ -41,18 +44,18 @@ class Job(object):
         self.relative_tardiness = None
         self.relative_response_time = None
 
-    #可视化任务生成DAG图
+    # 可视化任务生成DAG图
     def print_DAG(self):
-        size=len(self.matrix)
-        am=self.matrix
+        size = len(self.matrix)
+        am = self.matrix
         Matrix = np.array(am)
         G = nx.from_numpy_matrix(Matrix, create_using=nx.DiGraph())
         nx.draw_networkx(G, pos=nx.circular_layout(G), nodesize=size, alpha=1)
-        #S, pa = gen_node_load(size, 1, 10)
-        #print pa
-        #print "关键路径长度为：", calculate_critical_path_length(am, pa)
-        #topo = topological_sort(am)
-        #print "拓扑排序是：", topo
+        # S, pa = gen_node_load(size, 1, 10)
+        # print pa
+        # print "关键路径长度为：", calculate_critical_path_length(am, pa)
+        # topo = topological_sort(am)
+        # print "拓扑排序是：", topo
 
         path = self.str + "Job/"
         if (not os.path.exists(path)):
@@ -62,6 +65,4 @@ class Job(object):
         plt.title(title)
         plt.savefig(path + ".png", format="PNG")
         plt.cla()
-        #plt.show()
-
-
+        # plt.show()

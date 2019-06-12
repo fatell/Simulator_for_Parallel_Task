@@ -9,6 +9,7 @@
 from nodeInJob import *
 from datetime import datetime
 import os
+
 '''
 class NodeInJob(object):
     def __init__(self, ID, cost, deadline, t):
@@ -18,21 +19,27 @@ class NodeInJob(object):
         self.release_time = t
         self.finish_time = None
 '''
+
+
 def gcd(a, b):
     r = a % b
     if r:
         return gcd(b, r)
     else:
         return b
-#print gcd(13, 6)
+
+
+# print gcd(13, 6)
 
 def lcm(a, b):
     return a * b / gcd(a, b)
-#print lcm(12, 6)
+
+
+# print lcm(12, 6)
 
 def lcmAll(seq):
     return reduce(lcm, seq)
 
 
-lis = [2,2,4,5]
+lis = [2, 2, 4, 5]
 print lcmAll(lis)

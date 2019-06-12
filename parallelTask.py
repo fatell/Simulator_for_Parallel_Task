@@ -10,9 +10,12 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+
 '''
 ParallelTask：任务类，生成并行任务的DAG图，指定周期，DDL等
 '''
+
+
 class ParallelTask(object):
     # 节点个数 产生边的概率 节点payload的最小值 节点payload的最大值 任务总work值为某一固定值 周期 DDL 选项 保存的路径
     # 选项为1时产生总work值为固定值的任务，0时产生某一范围的子节点
@@ -34,9 +37,8 @@ class ParallelTask(object):
         self.critical_path_length = None
         self.topo_sort_list = None
 
-
-        #按照概率产生DAG图
-        am = [[0 for j in range(self.size)] for i in range(self.size)]#am为邻接矩阵
+        # 按照概率产生DAG图
+        am = [[0 for j in range(self.size)] for i in range(self.size)]  # am为邻接矩阵
         for i in range(self.size):
             for j in range(i + 1, self.size):
                 if (random.random() < self.p):
@@ -54,7 +56,7 @@ class ParallelTask(object):
             for j in range(self.size):
                 self.matrix[i][j] = am[i][j]
 
-        #计算拓扑排序 用来gedf
+        # 计算拓扑排序 用来gedf
         n = self.size
         # 获取所有入度为0的结点
         q = []
@@ -84,9 +86,8 @@ class ParallelTask(object):
                         q.insert(0, i)
         self.topo_sort_list = topo
 
-
-        #产生节点payload在范围(min, max)内
-        if(option == 0):
+        # 产生节点payload在范围(min, max)内
+        if (option == 0):
             size = self.size
             min = self.min
             max = self.max
@@ -98,8 +99,8 @@ class ParallelTask(object):
             self.cost = S
             self.pa = pa
 
-        #产生总work为固定值的DAG
-        if(option == 1):
+        # 产生总work为固定值的DAG
+        if (option == 1):
             size = self.size
             fixSum = self.fixsum
             pa = [0 for i in range(size)]
@@ -146,13 +147,12 @@ class ParallelTask(object):
                         if temp > critical_path_length:
                             critical_path_length = temp
                             self.critical_path_length = critical_path_length
-                            #print "少时诵诗书所所所所",critical_path_length
-
+                            # print "少时诵诗书所所所所",critical_path_length
 
     # 调整DAG图，使其只有一个源节点和终结点
     @staticmethod
     def adjust_matrix(am):
-        size=len(am)
+        size = len(am)
         start = [True for i in range(size)]
         end = [True for i in range(size)]
         for i in range(size):
@@ -203,62 +203,52 @@ class ParallelTask(object):
                 unconn_point = i
         return unconn_point
 
-
-
     # 打印邻接矩阵
     def print_adjust_matrix(self):
         print self.matrix
-
 
     # 打印周期
     def print_period(self):
         print self.period
 
-
     # 打印任务节点个数
     def print_size(self):
         print self.size
-
 
     # 打印DDL
     def print_ddl(self):
         print self.deadline
 
-
     # 打印任务的WCET
     def print_WCET(self):
         print self.cost
-
 
     # 打印拓扑排序结果
     def print_topo_sort(self):
         print self.topo_sort_list
 
-
     # 打印任务各个节点的payload列表
     def print_payload_list(self):
         print self.pa
-
 
     # 打印关键路径长度
     def print_critical_path_length(self):
         print self.critical_path_length
 
-
-    #可视化任务生成DAG图
+    # 可视化任务生成DAG图
     def print_DAG(self):
-        size=len(self.matrix)
-        am=self.matrix
+        size = len(self.matrix)
+        am = self.matrix
         Matrix = np.array(am)
         G = nx.from_numpy_matrix(Matrix, create_using=nx.DiGraph())
         nx.draw_networkx(G, pos=nx.circular_layout(G), nodesize=size, alpha=1)
-        #S, pa = gen_node_load(size, 1, 10)
-        #print pa
-        #print "关键路径长度为：", calculate_critical_path_length(am, pa)
-        #topo = topological_sort(am)
-        #print "拓扑排序是：", topo
+        # S, pa = gen_node_load(size, 1, 10)
+        # print pa
+        # print "关键路径长度为：", calculate_critical_path_length(am, pa)
+        # topo = topological_sort(am)
+        # print "拓扑排序是：", topo
         path = self.str + "Task/"
-        if(not os.path.exists(path)):
+        if (not os.path.exists(path)):
             os.makedirs(path)
         path = path + "Graph of " + str(self.ID) + "task"
         title = "Graph of " + str(self.ID) + "task"
@@ -267,11 +257,10 @@ class ParallelTask(object):
         plt.cla()
         # plt.show()
 
-
-#可视化任务生成DAG图
+    # 可视化任务生成DAG图
     def only_print_DAG(self):
-        size=len(self.matrix)
-        am=self.matrix
+        size = len(self.matrix)
+        am = self.matrix
         Matrix = np.array(am)
         G = nx.from_numpy_matrix(Matrix, create_using=nx.DiGraph())
         nx.draw_networkx(G, pos=nx.circular_layout(G), nodesize=size, alpha=1)
@@ -281,11 +270,8 @@ class ParallelTask(object):
         plt.cla()
 
 
-
-
 if __name__ == '__main__':
-
-    task=ParallelTask(0,5,0.5,1,10,100,10,10,1)
+    task = ParallelTask(0, 5, 0.5, 1, 10, 100, 10, 10, 1)
     print "matrix:"
     task.print_adjust_matrix()
     task.print_DAG()
@@ -303,12 +289,3 @@ if __name__ == '__main__':
     task.print_topo_sort()
     print "WCET:"
     task.print_WCET()
-
-
-
-
-
-
-
-
-

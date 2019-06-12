@@ -9,6 +9,7 @@
 from scheduler import *
 from datetime import datetime
 import os
+
 '''
 U = 1.25+1.25+1.25+1=4.75
 '''
@@ -108,5 +109,3 @@ if __name__ == '__main__':
         if m1 == m2:
             num_of_bounded = num_of_bounded + 1
         print "bound住的次数和运行的总次数为：", num_of_bounded, sum + 1
-
-

@@ -7,10 +7,13 @@
 # @Software: PyCharm
 
 from taskSetsGenerator import *
+
 '''
 数据分析主函数
 参数：finish_job
 '''
+
+
 def analyse_finish_job(finish_job, average_deadline):
     finish_job.sort(key=lambda item: item.relative_tardiness)
     max_normalized_tardiness = finish_job[-1].relative_tardiness
@@ -31,7 +34,6 @@ def analyse_finish_job(finish_job, average_deadline):
 
 if __name__ == '__main__':
     tasksets = tasksets_generator(8)
-
 
     print "任务生成完毕！"
     analyse_list = []
@@ -56,24 +58,6 @@ if __name__ == '__main__':
 
         GEDF_modify_result, GEDF_modify_finish_job = gedf_modify_scheduler(tasksets[i], CORENUM, time)
         analyse_result_GEDF_modify = analyse_finish_job(GEDF_modify_finish_job, average_deadline)
-        # 对finish_job进行数据处理分析，分别求归一化后的最大和平均tardiness，response_time
-        # max_tardiness = finish_job[-1].tardiness
-        # finish_job.sort(key=lambda item: item.response_time)
-        # max_response_time = finish_job[-1].response_time
-        #
-        # sum_of_tardiness = 0
-        # sum_of_response_time = 0
-        # for job in finish_job:
-        #     sum_of_tardiness = sum_of_tardiness + job.tardiness
-        #     sum_of_response_time = sum_of_response_time + job.response_time
-        # average_of_tardiness = 1.0 * sum_of_tardiness / len(finish_job)
-        # average_of_response_time = 1.0 * sum_of_response_time / len(finish_job)
-        # max_normalized_tardiness = 1.0 * max_tardiness / average_deadline
-        # average_normalized_tardiness = 1.0 * average_of_tardiness / average_deadline
-        # max_normalized_response_time = 1.0 * max_response_time / average_deadline
-        # average_normalized_response_time = 1.0 * average_of_response_time / average_deadline
-        #
-        # analyse_result = [max_normalized_tardiness, average_normalized_tardiness, max_normalized_response_time, average_normalized_response_time]
         analyse_list.append(analyse_result)
         analyse_list_FS.append(analyse_result_FS)
         analyse_list_GEDF_modify.append(analyse_result_GEDF_modify)
@@ -123,9 +107,6 @@ if __name__ == '__main__':
           "平均max_normalized_response_time,平均average_normalized_response_time:"
     print average_1, average_2, average_3, average_4
 
-
-
-
     print "FS!!!!!!:"
     sum5 = 0
     sum6 = 0
@@ -145,4 +126,3 @@ if __name__ == '__main__':
     print "平均max_normalized_tardiness, 平均average_normalized_tardiness," \
           "平均max_normalized_response_time,平均average_normalized_response_time:"
     print average5, average6, average7, average8
-

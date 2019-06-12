@@ -9,17 +9,16 @@
 from scheduler import *
 from datetime import datetime
 import os
+
 '''
 U = 1.25+0.5+0.8+0.6+0.6+1.25=5.0  [[0]]
 '''
 if __name__ == '__main__':
     str1 = " "
     task = ParallelTask(0, 1, 0.5, 1, 5, 10, 100, 100, 1, str1)
-    print task.matrix,task.cost
+    print task.matrix, task.cost
     task.matrix = [[0]]
-    print task.matrix,task.cost
-
-
+    print task.matrix, task.cost
 
 # 轻任务
 # if __name__ == '__main__':

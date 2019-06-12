@@ -5,10 +5,12 @@
 # @Site    : 
 # @File    : testPopZeroInDegreeNode.py
 # @Software: PyCharm
-from parallelTask  import *
-from job  import *
+from parallelTask import *
+from job import *
 from nodeInJob import *
-import  numpy as np
+import numpy as np
+
+
 def pop_nodes_of_zero_in_degree(job):
     n = job.size
     # 获取所有入度为0的结点
@@ -28,6 +30,8 @@ def pop_nodes_of_zero_in_degree(job):
             node = NodeInJob(ID, cost, ddl, release_time)
             q.append(node)
     return q
+
+
 # 测试数据
 # task1 = ParallelTask(5, 0.1, 1, 10, 100, 10, 10, 1)
 # task2 = ParallelTask(4, 0.8, 1, 10, 30, 5, 8, 1)
@@ -37,6 +41,4 @@ if __name__ == '__main__':
     i = "1-10-0"
     m = i.split("-")
 
-
     print m
-

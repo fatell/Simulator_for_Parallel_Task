@@ -6,7 +6,7 @@
 # @File    : main.py
 # @Software: PyCharm
 
-from parallelTask  import *
+from parallelTask import *
 from scheduler import *
 from datetime import datetime
 import os
@@ -64,4 +64,3 @@ if __name__ == '__main__':
 
         # print result
         print "tardiness为:", tardiness0, tardiness1
-

@@ -9,8 +9,9 @@
 from scheduler import *
 from datetime import datetime
 from taskSetsGenerator import *
+
 if __name__ == '__main__':
-    #tasksets = tasksets_generator(5)
+    # tasksets = tasksets_generator(5)
     tasksets = tasksets_generator2(24, 4)
     num_of_task_set = len(tasksets)
     num_of_bounded = 0
