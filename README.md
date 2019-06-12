@@ -12,4 +12,7 @@
 - testxxxx.py: 一些测试类
 - taskSetsAnalysis.py: 任务集静态属性分析（小提琴图）
 - xxxxAnalysis16/32.py: 各种实验结果分析（16核心和32核心）
-  
+
+## 分支说明
+- master分支：主分支，生成的任务周期会调整成和谐周期，即2的幂次方
+- Period_not_harmonious分支：该分支生成的任务周期不做调整  
