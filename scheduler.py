@@ -19,7 +19,7 @@ node_ToPolist_in_job：返回拓扑排序后的子任务序列，给定一个job
 子节点: 子节点ID cost 截止时间 释放时间 完成时间
 '''
 def node_ToPolist_in_job(job):
-    size = job.size
+    #size = job.size
     node_ToPolist = []
     prefixID = job.ID
     for i in job.topo_sort_list:
